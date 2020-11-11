@@ -1,31 +1,76 @@
-// const { Sequelize } = require("sequelize/types");
-const Project = require("./jProjects.model");
-const { sequelize, Sequelize } = require(".");
-const db = require("../config/db");
+"user strict";
+let sql = require(".");
 
-module.exports = (sequelize, Sequelize) => {
-  const IssueStatus = sequelize.define("IssueStatus", {
-    id: {
-      type: Sequelize.UUID,
-      defaultValue: Sequelize.UUIDV1,
-      primaryKey: true,
-    },
-    position: {
-      type: Sequelize.STRING,
-      alowNull: false,
-    },
-    status: {
-      type: Sequelize.STRING,
-      alowNull: false,
-    },
-    projectId: {
-      type: Sequelize.INTEGER,
-      references: {
-        model: Project,
-        key: "id",
-        deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE,
-      },
-    },
-  });
-  return IssueStatus;
+//Issue type object constructor
+var IssueStatus = function (issueStatus) {
+  console.log(issueStatus);
+  this.position = issueStatus.position;
+  this.status = issueStatus.status;
+  this.projectId = issueStatus.id;
 };
+
+const tableName = "jIssueStatus";
+
+IssueStatus.create = (newIssueStatus, result) => {
+  sql.query(`INSERT INTO ${tableName} set ?`, newIssueStatus, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+    } else {
+      console.log(res.insertId);
+      result(null, res.insertId);
+    }
+  });
+};
+IssueStatus.findById = (issueStatusId, result) => {
+  sql.query(
+    `Select * from ${tableName} where id = ?`,
+    issueStatusId,
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+      } else {
+        result(null, res);
+      }
+    }
+  );
+};
+IssueStatus.findAll = (result) => {
+  sql.query(`Select * from ${tableName}`, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+    } else {
+      console.log("issue status : ", res);
+
+      result(null, res);
+    }
+  });
+};
+IssueStatus.updateById = (id, issueStatus, result) => {
+  sql.query(
+    `UPDATE ${tableName} SET position = ?, status = ?, projectId = ? WHERE id = ?`,
+    [issueStatus.position, issueStatus.status, issueStatus.projectId, id],
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+      } else {
+        result(null, res);
+      }
+    }
+  );
+};
+IssueStatus.remove = (id, result) => {
+  sql.query(`DELETE FROM ${tableName} WHERE id = ?`, [id], function (err, res) {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+    } else {
+      result(null, res);
+    }
+  });
+};
+
+module.exports = IssueStatus;

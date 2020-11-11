@@ -1,25 +1,23 @@
+const express = require("express");
+const issueTypeController = require("../controllers/jIssueTypes.controller");
 
-module.exports = issueTypeRouter => {
-  const issueTypes = require("../controllers/jIssueTypes.controller");
-  
-  let router = require("express").Router();
-  // create new issue type
-  router.post("/", issueTypes.create);
+let router = express.Router();
+// create new issue type
+router.post("/", issueTypeController.create);
 
-  // find all issue type
-  router.get("/", issueTypes.findAll);
+// find all issue type
+router.get("/", issueTypeController.findAll);
 
-  // find one by id issue type
-  router.get("/:id", issueTypes.findOne);
+// find one by id issue type
+router.get("/:id", issueTypeController.findById);
 
-  // Update a IssueType with id
-  router.put("/:id", issueTypes.update);
+// Update a IssueType with id
+router.put("/:id", issueTypeController.update);
 
-  // Delete a IssueType with id
-  router.delete("/:id", issueTypes.delete);
+// Delete a IssueType with id
+router.delete("/:id", issueTypeController.delete);
 
-  // Delete all IssueTypes
-  router.delete("/", issueTypes.deleteAll);
+// Delete all issueTypesController
+router.delete("/", issueTypeController.deleteAll);
 
-  issueTypeRouter.use("/api/issueTypes", router);
-};
+module.exports = router;

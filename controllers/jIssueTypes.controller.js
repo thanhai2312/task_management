@@ -1,120 +1,55 @@
-const db = require("../models");
-const IssueType = db.issueTypes;
-const Op = db.Sequelize.Op;
-// const { QueryInterface } = require("sequelize/types");
+"use strict";
 
-
-
-exports.create = (req, res) => {
-  if (!req.body.name) {
-    res.status(400).send({
-      message: "Content not empty!",
-    });
-    return;
-  }
-  const issueType = {
-    name: req.body.name,
-  };
-
-  IssueType.create(issueType)
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "error create Issue Type",
-      });
-    });
-};
+const IssueType = require("../models/jIssueTypes.model");
 
 exports.findAll = (req, res) => {
-  const name = req.query.name;
-  IssueType.findAll({
-    where: {
-      name: {
-        [Op.not]: null,
-      },
-    },
-  })
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "error for find issue type",
-      });
-    });
+  IssueType.findAll((err, issueType) => {
+    if (err) throw err;
+    console.log(issueType);
+    res.send(issueType);
+  });
 };
 
-exports.findOne = (req, res) => {
-  const id = req.params.id;
+exports.create = (req, res) => {
+  const new_issueType = new IssueType(req.body);
 
-  IssueType.findByPk(id)
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "error for find id issue type",
-      });
+  if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
+    res.status(400).send({ error: true, message: "dien tat ca cac truong" });
+  } else {
+    IssueType.createIssueType(new_issueType, (err, issueType) => {
+      if (err) res.send(err);
+      res.json({ error: false, message: "successfully", data: issueType });
     });
+  }
+};
+
+exports.findById = (req, res) => {
+  IssueType.findById(req.params.id, (err, issueType) => {
+    if (err) res.send(err);
+    res.json(issueType);
+  });
 };
 
 exports.update = (req, res) => {
-  const id = req.params.id;
-
-  IssueType.update(req.body, {
-    where: { id: id },
-  })
-    .then((num) => {
-      if (num == 1) {
-        res.send({ message: "updated success" });
-      } else {
-        res.send({
-          message: `cannot update id=${id}`,
-        });
+  if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
+    res
+      .status(400)
+      .send({ error: true, message: "Please provide all required field" });
+  } else {
+    IssueType.updateById(
+      req.params.id,
+      new IssueType(req.body),
+      (err, issueType) => {
+        if (err) res.send(err);
+        res.json({ error: false, message: "updated successfully" });
       }
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: "error update",
-      });
-    });
+    );
+  }
 };
 
 exports.delete = (req, res) => {
-  const id = req.params.id;
-
-  IssueType.destroy({
-    where: { id: id },
-  })
-    .then((num) => {
-      if (num == 1) {
-        res.send({ message: "deleted successfully" });
-      } else {
-        res.send({
-          message: `cannot delete id=${id}`,
-        });
-      }
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: "error delete",
-      });
-    });
-};
-
-exports.deleteAll = (req, res) => {
-  IssueType.destroy({
-    where: {},
-    truncate: false,
-  })
-    .then((nums) => {
-      res.send({ message: `${nums} types was deleted successfully` });
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: "error delete",
-      });
-    });
+  IssueType.delete(req.params.id, (err, issueType) => {
+    if (err) res.send(err);
+    res.json({ error: false, message: "deleted successfully" });
+  });
 };
