@@ -30,6 +30,7 @@ Issue.create = (newIssue, result) => {
     }
   });
 };
+
 Issue.findById = (issueId, result) => {
   sql.query(`Select * from ${tableName} where id = ?`, issueId, (err, res) => {
     if (err) {
@@ -40,6 +41,7 @@ Issue.findById = (issueId, result) => {
     }
   });
 };
+
 Issue.findAll = (result) => {
   sql.query(`Select * from ${tableName}`, (err, res) => {
     if (err) {
@@ -47,11 +49,11 @@ Issue.findAll = (result) => {
       result(null, err);
     } else {
       console.log("issue : ", res);
-
       result(null, res);
     }
   });
 };
+
 Issue.updateById = (id, issue, result) => {
   sql.query(
     `UPDATE ${tableName} SET title = ?, listPosition = ?, description = ?, reporterId = ?, userId = ?, deadlineAt = ?, updateAt = ?, issueTypeId = ?, issueStatusId = ?, issuePriorityId = ?  WHERE id = ?`,
@@ -78,6 +80,7 @@ Issue.updateById = (id, issue, result) => {
     }
   );
 };
+
 Issue.remove = (id, result) => {
   sql.query(`DELETE FROM ${tableName} WHERE id = ?`, [id], function (err, res) {
     if (err) {

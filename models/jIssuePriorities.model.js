@@ -20,6 +20,7 @@ IssuePriority.create = (newIssuePriority, result) => {
     }
   });
 };
+
 IssuePriority.findById = (issuePriorityId, result) => {
   sql.query(
     `Select * from ${tableName} where id = ?`,
@@ -34,6 +35,7 @@ IssuePriority.findById = (issuePriorityId, result) => {
     }
   );
 };
+
 IssuePriority.findAll = (result) => {
   sql.query(`Select * from ${tableName}`, (err, res) => {
     if (err) {
@@ -41,11 +43,11 @@ IssuePriority.findAll = (result) => {
       result(null, err);
     } else {
       console.log("issue priority : ", res);
-
       result(null, res);
     }
   });
 };
+
 IssuePriority.updateById = (id, issuePriority, result) => {
   sql.query(
     `UPDATE ${tableName} SET priority = ? WHERE id = ?`,
@@ -60,6 +62,7 @@ IssuePriority.updateById = (id, issuePriority, result) => {
     }
   );
 };
+
 IssuePriority.remove = (id, result) => {
   sql.query(`DELETE FROM ${tableName} WHERE id = ?`, [id], function (err, res) {
     if (err) {

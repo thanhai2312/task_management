@@ -22,6 +22,7 @@ IssueStatus.create = (newIssueStatus, result) => {
     }
   });
 };
+
 IssueStatus.findById = (issueStatusId, result) => {
   sql.query(
     `Select * from ${tableName} where id = ?`,
@@ -36,6 +37,7 @@ IssueStatus.findById = (issueStatusId, result) => {
     }
   );
 };
+
 IssueStatus.findAll = (result) => {
   sql.query(`Select * from ${tableName}`, (err, res) => {
     if (err) {
@@ -43,11 +45,11 @@ IssueStatus.findAll = (result) => {
       result(null, err);
     } else {
       console.log("issue status : ", res);
-
       result(null, res);
     }
   });
 };
+
 IssueStatus.updateById = (id, issueStatus, result) => {
   sql.query(
     `UPDATE ${tableName} SET position = ?, status = ?, projectId = ? WHERE id = ?`,
@@ -62,6 +64,7 @@ IssueStatus.updateById = (id, issueStatus, result) => {
     }
   );
 };
+
 IssueStatus.remove = (id, result) => {
   sql.query(`DELETE FROM ${tableName} WHERE id = ?`, [id], function (err, res) {
     if (err) {
