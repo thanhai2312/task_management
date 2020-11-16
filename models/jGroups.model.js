@@ -1,5 +1,4 @@
-"user strict";
-let sql = require(".");
+var sql = require("../config/db.config");
 
 //Issue type object constructor
 var Group = function (group) {
@@ -11,7 +10,7 @@ var Group = function (group) {
   this.userIds = group.userIds;
 };
 
-const tableName = "jGroup";
+const tableName = "jgroups";
 
 Group.create = (newGroup, result) => {
   sql.query(`INSERT INTO ${tableName} set ?`, newGroup, (err, res) => {
@@ -24,6 +23,7 @@ Group.create = (newGroup, result) => {
     }
   });
 };
+
 Group.findById = (groupId, result) => {
   sql.query(
     `Select * from ${tableName} where id = ?`,
@@ -38,6 +38,7 @@ Group.findById = (groupId, result) => {
     }
   );
 };
+
 Group.findAll = (result) => {
   sql.query(`Select * from ${tableName}`, (err, res) => {
     if (err) {
@@ -50,6 +51,7 @@ Group.findAll = (result) => {
     }
   });
 };
+
 Group.updateById = (id, group, result) => {
   sql.query(
     `UPDATE ${tableName} SET name = ?, description = ?, updateAt = ?, userIds = ? WHERE id = ?`,
@@ -64,6 +66,7 @@ Group.updateById = (id, group, result) => {
     }
   );
 };
+
 Group.remove = (id, result) => {
   sql.query(`DELETE FROM ${tableName} WHERE id = ?`, [id], function (err, res) {
     if (err) {

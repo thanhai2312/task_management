@@ -24,6 +24,7 @@ Comment.create = (newComment, result) => {
     }
   });
 };
+
 Comment.findById = (commentId, result) => {
   sql.query(
     `Select * from ${tableName} where id = ?`,
@@ -38,6 +39,7 @@ Comment.findById = (commentId, result) => {
     }
   );
 };
+
 Comment.findAll = (result) => {
   sql.query(`Select * from ${tableName}`, (err, res) => {
     if (err) {
@@ -50,6 +52,7 @@ Comment.findAll = (result) => {
     }
   });
 };
+
 Comment.updateById = (id, comment, result) => {
   sql.query(
     `UPDATE ${tableName} SET body = ?, updateAt = ?, userId = ?, issueId = ? WHERE id = ?`,
@@ -64,6 +67,7 @@ Comment.updateById = (id, comment, result) => {
     }
   );
 };
+
 Comment.remove = (id, result) => {
   sql.query(`DELETE FROM ${tableName} WHERE id = ?`, [id], function (err, res) {
     if (err) {

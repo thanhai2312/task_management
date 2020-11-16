@@ -1,5 +1,4 @@
-"user strict";
-let sql = require(".");
+var sql = require("../config/db.config");
 
 //Issue type object constructor
 var User = function (user) {
@@ -13,7 +12,7 @@ var User = function (user) {
 
 };
 
-const tableName = "jUser";
+const tableName = "jusers";
 
 User.create = (newUser, result) => {
   sql.query(`INSERT INTO ${tableName} set ?`, newUser, (err, res) => {
@@ -26,6 +25,7 @@ User.create = (newUser, result) => {
     }
   });
 };
+
 User.findById = (userId, result) => {
   sql.query(
     `Select * from ${tableName} where id = ?`,
@@ -40,6 +40,7 @@ User.findById = (userId, result) => {
     }
   );
 };
+
 User.findAll = (result) => {
   sql.query(`Select * from ${tableName}`, (err, res) => {
     if (err) {
@@ -52,6 +53,7 @@ User.findAll = (result) => {
     }
   });
 };
+
 User.updateById = (id, user, result) => {
   sql.query(
     `UPDATE ${tableName} SET name = ?, updateAt = ?, email = ?, description = ?, avatarUrl = ? WHERE id = ?`,
@@ -66,6 +68,7 @@ User.updateById = (id, user, result) => {
     }
   );
 };
+
 User.remove = (id, result) => {
   sql.query(`DELETE FROM ${tableName} WHERE id = ?`, [id], function (err, res) {
     if (err) {

@@ -25,6 +25,7 @@ Project.create = (newProject, result) => {
     }
   });
 };
+
 Project.findById = (projectId, result) => {
   sql.query(
     `Select * from ${tableName} where id = ?`,
@@ -39,6 +40,7 @@ Project.findById = (projectId, result) => {
     }
   );
 };
+
 Project.findAll = (result) => {
   sql.query(`Select * from ${tableName}`, (err, res) => {
     if (err) {
@@ -51,6 +53,7 @@ Project.findAll = (result) => {
     }
   });
 };
+
 Project.updateById = (id, project, result) => {
   sql.query(
     `UPDATE ${tableName} SET name = ?, description = ?, updateAt = ?, projectCategoryId = ?, groupId = ? WHERE id = ?`,
@@ -65,6 +68,7 @@ Project.updateById = (id, project, result) => {
     }
   );
 };
+
 Project.remove = (id, result) => {
   sql.query(`DELETE FROM ${tableName} WHERE id = ?`, [id], function (err, res) {
     if (err) {
