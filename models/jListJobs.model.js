@@ -1,22 +1,18 @@
-var sql = require("../config/db.config");
+"user strict";
+let sql = require(".");
 
 //Issue type object constructor
-var User = function (user) {
-  console.log(user);
-  this.name = user.name;
-  this.email = user.email;
-  this.description = user.description;
-  this.avatarUrl = user.avatarUrl;
-  this.createAt = new Date();
-  this.updateAt = user.updateAt
-  this.projectAdmin = user.projectAdmin
-
+var ListJob = function (listJob) {
+  console.log(listJob);
+  this.name = listJob.name;
+  this.issueId = listJob.issueId;
+  
 };
 
-const tableName = "jusers";
+const tableName = "jlistJobs";
 
-User.create = (newUser, result) => {
-  sql.query(`INSERT INTO ${tableName} set ?`, newUser, (err, res) => {
+ListJob.create = (newListJob, result) => {
+  sql.query(`INSERT INTO ${tableName} set ?`, newListJob, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -27,10 +23,10 @@ User.create = (newUser, result) => {
   });
 };
 
-User.findById = (userId, result) => {
+ListJob.findById = (listJobId, result) => {
   sql.query(
     `Select * from ${tableName} where id = ?`,
-    userId,
+    listJobId,
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -42,23 +38,22 @@ User.findById = (userId, result) => {
   );
 };
 
-User.findAll = (result) => {
+ListJob.findAll = (result) => {
   sql.query(`Select * from ${tableName}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
     } else {
-      console.log("user : ", res);
-
+      console.log("listJob status : ", res);
       result(null, res);
     }
   });
 };
 
-User.updateById = (id, user, result) => {
+ListJob.updateById = (id, listJob, result) => {
   sql.query(
-    `UPDATE ${tableName} SET name = ?, updateAt = ?, email = ?, description = ?, avatarUrl = ? WHERE id = ?`,
-    [user.name, user.email, user.description, user.avatarUrl, user.updateAt, id],
+    `UPDATE ${tableName} SET name = ?, issueId = ? WHERE id = ?`,
+    [listJob.name, listJob.issueId, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -70,7 +65,7 @@ User.updateById = (id, user, result) => {
   );
 };
 
-User.remove = (id, result) => {
+ListJob.remove = (id, result) => {
   sql.query(`DELETE FROM ${tableName} WHERE id = ?`, [id], function (err, res) {
     if (err) {
       console.log("error: ", err);
@@ -81,4 +76,4 @@ User.remove = (id, result) => {
   });
 };
 
-module.exports = User;
+module.exports = ListJob;
