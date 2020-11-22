@@ -1,22 +1,20 @@
-var sql = require("../config/db.config");
+"user strict";
+let sql = require(".");
 
 //Issue type object constructor
-var User = function (user) {
-  console.log(user);
-  this.name = user.name;
-  this.email = user.email;
-  this.description = user.description;
-  this.avatarUrl = user.avatarUrl;
-  this.createAt = new Date();
-  this.updateAt = user.updateAt
-  this.projectAdmin = user.projectAdmin
-
+var Job = function (job) {
+  console.log(job);
+  this.name = job.name;
+  this.finish = job.finish;
+  this.userIds = job.userIds;
+  this.deadlineAt = new Date();
+  this.listJobId = job.listJobId;
 };
 
-const tableName = "jusers";
+const tableName = "jjobs";
 
-User.create = (newUser, result) => {
-  sql.query(`INSERT INTO ${tableName} set ?`, newUser, (err, res) => {
+Job.create = (newJob, result) => {
+  sql.query(`INSERT INTO ${tableName} set ?`, newJob, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -27,10 +25,10 @@ User.create = (newUser, result) => {
   });
 };
 
-User.findById = (userId, result) => {
+Job.findById = (jobId, result) => {
   sql.query(
     `Select * from ${tableName} where id = ?`,
-    userId,
+    jobId,
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -42,23 +40,22 @@ User.findById = (userId, result) => {
   );
 };
 
-User.findAll = (result) => {
+Job.findAll = (result) => {
   sql.query(`Select * from ${tableName}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
     } else {
-      console.log("user : ", res);
-
+      console.log("job status : ", res);
       result(null, res);
     }
   });
 };
 
-User.updateById = (id, user, result) => {
+Job.updateById = (id, job, result) => {
   sql.query(
-    `UPDATE ${tableName} SET name = ?, updateAt = ?, email = ?, description = ?, avatarUrl = ? WHERE id = ?`,
-    [user.name, user.email, user.description, user.avatarUrl, user.updateAt, id],
+    `UPDATE ${tableName} SET name = ?, finish = ?, userIds = ?, deadlineAt = ?, listJobId = ? WHERE id = ?`,
+    [job.name, job.finish, job.userIds, job.deadlineAt, job.listJobId, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -70,7 +67,7 @@ User.updateById = (id, user, result) => {
   );
 };
 
-User.remove = (id, result) => {
+Job.remove = (id, result) => {
   sql.query(`DELETE FROM ${tableName} WHERE id = ?`, [id], function (err, res) {
     if (err) {
       console.log("error: ", err);
@@ -81,4 +78,4 @@ User.remove = (id, result) => {
   });
 };
 
-module.exports = User;
+module.exports = Job;

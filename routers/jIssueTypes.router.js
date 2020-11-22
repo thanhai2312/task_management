@@ -6,16 +6,16 @@ let router = new express.Router();
 router.post("/", issueTypeController.create);
 
 // find all issue type
-router.get("/all", issueTypeController.findAll);
+router.get("/", issueTypeController.findAll);
 
 // find one by id issue type
 router.get("/:id", issueTypeController.findById);
 
-// // Update a IssueType with id
-// router.put("/:id", issueTypeController.update);
+// Update a IssueType with id
+router.put("/:id", issueTypeController.update);
 
-// // Delete a IssueType with id
-// router.delete("/:id", issueTypeController.delete);
+// Delete a IssueType with id
+router.delete("/:id", issueTypeController.delete);
 
 // // Delete all issueTypesController
 // router.delete("/", issueTypeController.deleteAll);

@@ -13,12 +13,13 @@ exports.findAll = (req, res) => {
 exports.create = (req, res) => {
   const new_issueType = new IssueType(req.body);
 
-  if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
+  if (!req.body) {
     res.status(400).send({ error: true, message: "dien tat ca cac truong" });
   } else {
-    IssueType.createIssueType(new_issueType, (err, issueType) => {
+    console.log(req.body)
+    IssueType.create(new_issueType, (err, issueType) => {
       if (err) res.send(err);
-      res.json({ error: false, message: "successfully", data: issueType });
+      res.send({ error: false, message: "successfully", data: issueType });
     });
   }
 };
