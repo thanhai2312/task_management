@@ -1,11 +1,24 @@
 const express = require("express");
-const userController = require("../controllers/jUser.controller");
 
-// console.log(issueTypeController);
+const userController = require("../controllers/jUser.controller");
+// console.log(userController);
 let router = new express.Router();
+// create new issue type
+router.post("/", userController.create);
+
 // find all issue type
-router.get("/all", userController.findAll);
+router.get("/", userController.findAll);
+
 // find one by id issue type
 router.get("/:id", userController.findById);
+
+// Update a IssueType with id
+router.put("/:id", userController.update);
+
+// Delete a IssueType with id
+router.delete("/:id", userController.delete);
+
+// // Delete all issueTypesController
+// router.delete("/", userController.deleteAll);
 
 module.exports = router;

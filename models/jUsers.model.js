@@ -1,4 +1,4 @@
-var sql = require("../config/db.config");
+var sql = require(".");
 
 //Issue type object constructor
 var User = function (user) {
@@ -7,13 +7,14 @@ var User = function (user) {
   this.email = user.email;
   this.description = user.description;
   this.avatarUrl = user.avatarUrl;
+  this.password = user.password;
   this.createAt = new Date();
   this.updateAt = user.updateAt
   this.projectAdmin = user.projectAdmin
 
 };
 
-const tableName = "jusers";
+const tableName = "JUsers";
 
 User.create = (newUser, result) => {
   sql.query(`INSERT INTO ${tableName} set ?`, newUser, (err, res) => {
@@ -22,7 +23,7 @@ User.create = (newUser, result) => {
       result(err, null);
     } else {
       console.log(res.insertId);
-      result(null, res.insertId);
+      result(null, {id:res.insertId, ...newUser});
     }
   });
 };

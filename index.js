@@ -32,14 +32,14 @@ const userRouter = require("./routers/jUser.router");
 const issueRouter = require("./routers/jIssue.router");
 
 app.use("/api/issue-type", issueTypeRouter);
-app.use('/api/v1/user', userRouter)
-app.use('/api/v1/issue', issueRouter)
-app.use('/api/v1/issue-priority', issuePriorityRouter)
-app.use('/api/v1/issue-status', issueStatusRouter)
-app.use('/api/v1/job', jobRouter)
-app.use('/api/v1/list-job', listJobRouter)
-app.use('/api/v1/project', projectRouter)
-app.use('/api/v1/project-category', projectCategoryRouter)
+app.use("/api/v1/user", userRouter);
+app.use("/api/v1/issue", issueRouter);
+app.use("/api/v1/issue-priority", issuePriorityRouter);
+app.use("/api/v1/issue-status", issueStatusRouter);
+app.use("/api/v1/job", jobRouter);
+app.use("/api/v1/list-job", listJobRouter);
+app.use("/api/v1/project", projectRouter);
+app.use("/api/v1/project-category", projectCategoryRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

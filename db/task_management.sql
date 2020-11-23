@@ -24,10 +24,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `JIssue`
+-- Cấu trúc bảng cho bảng `JIssues`
 --
 
-CREATE TABLE `JIssue` (
+CREATE TABLE `JIssues` (
   `id` bigint(20) NOT NULL,
   `title` text DEFAULT NULL,
   `issueTypeId` bigint(20) DEFAULT NULL,
@@ -35,8 +35,8 @@ CREATE TABLE `JIssue` (
   `issuePriorityId` bigint(20) DEFAULT NULL,
   `listPosition` decimal(10,0) DEFAULT NULL,
   `description` text DEFAULT NULL,
-  `reporterId` bigint(20) DEFAULT NULL,
-  `userIds` bigint(20) DEFAULT NULL,
+  `reporterId` varchar(30) DEFAULT NULL,
+  `userIds` varchar(30) DEFAULT NULL,
   `deadlineAt` datetime DEFAULT NULL,
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL
@@ -45,10 +45,10 @@ CREATE TABLE `JIssue` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `JIssuePriority`
+-- Cấu trúc bảng cho bảng `JIssuePriorities`
 --
 
-CREATE TABLE `JIssuePriority` (
+CREATE TABLE `JIssuePriorities` (
   `id` bigint(20) NOT NULL,
   `priority` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -61,7 +61,7 @@ CREATE TABLE `JIssuePriority` (
 
 CREATE TABLE `JIssueStatus` (
   `id` bigint(20) NOT NULL,
-  `position` varchar(30) NOT NULL,
+  `position` number NOT NULL,
   `status` char(60) NOT NULL,
   `projectId` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -84,10 +84,10 @@ CREATE TABLE `JJobs` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `JKssueTypes`
+-- Cấu trúc bảng cho bảng `JIssueTypes`
 --
 
-CREATE TABLE `JKssueTypes` (
+CREATE TABLE `JIssueTypes` (
   `id` bigint(20) NOT NULL,
   `type` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -124,7 +124,7 @@ CREATE TABLE `JProjectCategories` (
 CREATE TABLE `JProjects` (
   `id` bigint(20) NOT NULL,
   `name` varchar(30) DEFAULT NULL,
-  `descriptio` text DEFAULT NULL,
+  `description` text DEFAULT NULL,
   `projectCategoriesId` bigint(20) DEFAULT NULL,
   `createdAt` datetime DEFAULT NULL,
   `updateAt` datetime DEFAULT NULL
@@ -137,7 +137,7 @@ CREATE TABLE `JProjects` (
 --
 
 CREATE TABLE `JUserProjects` (
-  `userId` bigint(20) DEFAULT NULL,
+  `userId` varchar(30) DEFAULT NULL,
   `projectId` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -148,10 +148,11 @@ CREATE TABLE `JUserProjects` (
 --
 
 CREATE TABLE `JUsers` (
-  `id` bigint(20) NOT NULL,
-  `name` varchar(30) DEFAULT NULL,
-  `email` varchar(30) DEFAULT NULL,
-  `description` text DEFAULT NULL,
+  `id` varchar(30) NOT NULL,
+  `name` varchar(30)  NOT NULL,
+  `password` varchar(30) NOT NULL
+  `email` varchar(30)  NOT NULL,
+  `description` text  DEFAULT NULL,
   `avatarUrl` text DEFAULT NULL,
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL,
@@ -163,18 +164,18 @@ CREATE TABLE `JUsers` (
 --
 
 --
--- Chỉ mục cho bảng `JIssue`
+-- Chỉ mục cho bảng `JIssues`
 --
-ALTER TABLE `JIssue`
+ALTER TABLE `JIssues`
   ADD PRIMARY KEY (`id`),
   ADD KEY `issuePriorityId` (`issuePriorityId`),
   ADD KEY `issueStatusId` (`issueStatusId`),
   ADD KEY `issueTypeId` (`issueTypeId`);
 
 --
--- Chỉ mục cho bảng `JIssuePriority`
+-- Chỉ mục cho bảng `JIssuePriorities`
 --
-ALTER TABLE `JIssuePriority`
+ALTER TABLE `JIssuePriorities`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -192,9 +193,9 @@ ALTER TABLE `JJobs`
   ADD KEY `listJobId` (`listJobId`);
 
 --
--- Chỉ mục cho bảng `JKssueTypes`
+-- Chỉ mục cho bảng `JIssueTypes`
 --
-ALTER TABLE `JKssueTypes`
+ALTER TABLE `JIssueTypes`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -235,9 +236,9 @@ ALTER TABLE `JUsers`
 --
 
 --
--- AUTO_INCREMENT cho bảng `JIssuePriority`
+-- AUTO_INCREMENT cho bảng `JIssuePriorities`
 --
-ALTER TABLE `JIssuePriority`
+ALTER TABLE `JIssuePriorities`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
@@ -247,9 +248,9 @@ ALTER TABLE `JIssueStatus`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `JKssueTypes`
+-- AUTO_INCREMENT cho bảng `JIssueTypes`
 --
-ALTER TABLE `JKssueTypes`
+ALTER TABLE `JIssueTypes`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
@@ -257,12 +258,12 @@ ALTER TABLE `JKssueTypes`
 --
 
 --
--- Các ràng buộc cho bảng `JIssue`
+-- Các ràng buộc cho bảng `JIssues`
 --
-ALTER TABLE `JIssue`
-  ADD CONSTRAINT `jissue_ibfk_1` FOREIGN KEY (`issuePriorityId`) REFERENCES `JIssuePriority` (`id`),
+ALTER TABLE `JIssues`
+  ADD CONSTRAINT `jissue_ibfk_1` FOREIGN KEY (`issuePriorityId`) REFERENCES `JIssuePriorities` (`id`),
   ADD CONSTRAINT `jissue_ibfk_2` FOREIGN KEY (`issueStatusId`) REFERENCES `JIssueStatus` (`id`),
-  ADD CONSTRAINT `jissue_ibfk_3` FOREIGN KEY (`issueTypeId`) REFERENCES `JKssueTypes` (`id`);
+  ADD CONSTRAINT `jissue_ibfk_3` FOREIGN KEY (`issueTypeId`) REFERENCES `JIssueTypes` (`id`);
 
 --
 -- Các ràng buộc cho bảng `JIssueStatus`
@@ -280,7 +281,7 @@ ALTER TABLE `JJobs`
 -- Các ràng buộc cho bảng `JListJobs`
 --
 ALTER TABLE `JListJobs`
-  ADD CONSTRAINT `jlistjobs_ibfk_1` FOREIGN KEY (`issueId`) REFERENCES `JIssue` (`id`);
+  ADD CONSTRAINT `jlistjobs_ibfk_1` FOREIGN KEY (`issueId`) REFERENCES `JIssues` (`id`);
 
 --
 -- Các ràng buộc cho bảng `JProjects`
