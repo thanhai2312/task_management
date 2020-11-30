@@ -7,7 +7,7 @@ var IssueType = function (issueType) {
   this.type = issueType.type;
 };
 
-const tableName = `JKssueTypes`;
+const tableName = `JIssueTypes`;
 
 IssueType.create = (newIssueType, result) => {
   sql.query(`INSERT INTO ${tableName} set ?`, newIssueType, (err, res) => {

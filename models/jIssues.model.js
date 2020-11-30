@@ -17,7 +17,7 @@ var Issue = function (issue)  {
   this.issuePriorityId = issue.issuePriorityId;
 };
 
-const tableName = "jIssue";
+const tableName = "jIssues";
 
 Issue.create = (newIssue, result) => {
   sql.query(`INSERT INTO ${tableName} set ?`, newIssue, (err, res) => {
