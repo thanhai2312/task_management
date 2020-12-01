@@ -137,7 +137,7 @@ CREATE TABLE `JProjects` (
 --
 
 CREATE TABLE `JUserProjects` (
-  `userId` bigint(20) DEFAULT NULL,
+  `userId` varchar(255) DEFAULT NULL,
   `projectId` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -166,7 +166,7 @@ CREATE TABLE `JUsers` (
 --
 -- Chỉ mục cho bảng `JIssue`
 --
-ALTER TABLE `JIssue`
+ALTER TABLE `JIssues`
   ADD PRIMARY KEY (`id`),
   ADD KEY `issuePriorityId` (`issuePriorityId`),
   ADD KEY `issueStatusId` (`issueStatusId`),
