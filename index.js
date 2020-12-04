@@ -31,7 +31,7 @@ const projectCategoryRouter = require("./routers/jProjectCategory.router");
 const userRouter = require("./routers/jUser.router");
 const issueRouter = require("./routers/jIssue.router");
 
-app.use("/api/issue-type", issueTypeRouter);
+app.use("/api/v1/issue-type", issueTypeRouter);
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/issue", issueRouter);
 app.use("/api/v1/issue-priority", issuePriorityRouter);
