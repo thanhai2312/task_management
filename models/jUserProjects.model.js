@@ -1,5 +1,4 @@
-"user strict";
-let sql = require(".");
+var sql = require(".");
 
 //Issue type object constructor
 var UserProject = function (userProject) {
@@ -9,7 +8,7 @@ var UserProject = function (userProject) {
 
 };
 
-const tableName = "JUserProject";
+const tableName = "JUserProjects";
 
 UserProject.create = (newUserProject, result) => {
   sql.query(`INSERT INTO ${tableName} set ?`, newUserProject, (err, res) => {
@@ -35,6 +34,22 @@ UserProject.findAll = (result) => {
     }
   });
 };
+
+UserProject.findUserByProjectId = (id, result) => {
+  sql.query(`Select JUsers.* from ${tableName} INNER JOIN JUsers ON ${tableName}.userId=JUsers.id WHERE projectId = ?`,
+  id,
+  (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+    } else {
+      console.log("project category : ", res);
+
+      result(null, res);
+    }
+  });
+};
+
 // UserProject.updateById = (id, projectCategory, result) => {
 //   sql.query(
 //     `UPDATE ${tableName} SET category = ? WHERE id = ?`,
@@ -60,4 +75,4 @@ UserProject.findAll = (result) => {
 //   });
 // };
 
-module.exports = ProjectCategory;
+module.exports = UserProject;

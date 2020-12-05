@@ -10,10 +10,16 @@ router.post("/", userController.create);
 router.get("/", userController.findAll);
 
 // find one by id issue type
+router.get("email/:email", userController.findIdByEmail);
+
+// find id by email
 router.get("/:id", userController.findById);
 
 // Update a IssueType with id
 router.put("/:id", userController.update);
+
+// updateAdminProjects with id
+router.put("/update_admin_projects/:id", userController.updateAdminProjects);
 
 // Delete a IssueType with id
 router.delete("/:id", userController.delete);

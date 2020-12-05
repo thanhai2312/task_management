@@ -31,6 +31,13 @@ exports.findById = (req, res) => {
   });
 };
 
+exports.findIdByEmail = (req, res) => {
+  user.findIdByEmail(req.params.email, (err, user) => {
+    if (err) res.send(err);
+    res.json(user);
+  });
+};
+
 exports.update = (req, res) => {
   if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
     res
@@ -40,6 +47,23 @@ exports.update = (req, res) => {
     user.updateById(
       req.params.id,
       new user(req.body),
+      (err, issueType) => {
+        if (err) res.send(err);
+        res.json({ error: false, message: "updated successfully" });
+      }
+    );
+  }
+};
+
+exports.updateAdminProjects = (req, res) => {
+  if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
+    res
+      .status(400)
+      .send({ error: true, message: "Please provide all required field" });
+  } else {
+    user.updateAdminProjects(
+      req.params.id,
+      req.body.projectAdmins,
       (err, issueType) => {
         if (err) res.send(err);
         res.json({ error: false, message: "updated successfully" });

@@ -30,6 +30,7 @@ const projectRouter = require("./routers/jProject.router");
 const projectCategoryRouter = require("./routers/jProjectCategory.router");
 const userRouter = require("./routers/jUser.router");
 const issueRouter = require("./routers/jIssue.router");
+const userProjectRouter = require("./routers/jUserProjects.router");
 
 app.use("/api/v1/issue-type", issueTypeRouter);
 app.use("/api/v1/user", userRouter);
@@ -40,6 +41,7 @@ app.use("/api/v1/job", jobRouter);
 app.use("/api/v1/list-job", listJobRouter);
 app.use("/api/v1/project", projectRouter);
 app.use("/api/v1/project-category", projectCategoryRouter);
+app.use("/api/v1/user-project", userProjectRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

@@ -43,6 +43,21 @@ User.findById = (userId, result) => {
   );
 };
 
+User.findIdByEmail = (email, result) => {
+  sql.query(
+    `Select id from ${tableName} where email = ?`,
+    email,
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+      } else {
+        result(null, res);
+      }
+    }
+  );
+};
+
 User.findAll = (result) => {
   sql.query(`Select * from ${tableName}`, (err, res) => {
     if (err) {
@@ -60,6 +75,21 @@ User.updateById = (id, user, result) => {
   sql.query(
     `UPDATE ${tableName} SET name = ?, updateAt = ?, email = ?, description = ?, avatarUrl = ? WHERE id = ?`,
     [user.name, user.email, user.description, user.avatarUrl, user.updateAt, id],
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+      } else {
+        result(null, res);
+      }
+    }
+  );
+};
+
+User.updateAdminProjects = (id, project_admin, result) => {
+  sql.query(
+    `UPDATE ${tableName} SET projectAdmin = ? WHERE id = ?`,
+    [project_admin, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
