@@ -2,7 +2,6 @@ var sql = require(".");
 
 //Issue type object constructor
 var UserProject = function (userProject) {
-  console.log(projectCategory);
   this.userId = userProject.userId;
   this.projectId = userProject.projectId;
 
@@ -37,6 +36,21 @@ UserProject.findAll = (result) => {
 
 UserProject.findUserByProjectId = (id, result) => {
   sql.query(`Select JUsers.* from ${tableName} INNER JOIN JUsers ON ${tableName}.userId=JUsers.id WHERE projectId = ?`,
+  id,
+  (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+    } else {
+      console.log("project category : ", res);
+
+      result(null, res);
+    }
+  });
+};
+
+UserProject.findByUserId = (id, result) => {
+  sql.query(`Select * from ${tableName} WHERE userId = ?`,
   id,
   (err, res) => {
     if (err) {

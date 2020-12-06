@@ -8,9 +8,9 @@ var User = function (user) {
   this.description = user.description;
   this.avatarUrl = user.avatarUrl;
   this.password = user.password;
-  this.createAt = new Date();
-  this.updateAt = user.updateAt
-  this.projectAdmin = user.projectAdmin
+  this.createAt = user.createAt;
+  this.updateAt = user.updateAt;
+  this.projectAdmin = user.projectAdmin;
 
 };
 

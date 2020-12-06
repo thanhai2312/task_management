@@ -10,7 +10,7 @@ router.post("/", userController.create);
 router.get("/", userController.findAll);
 
 // find one by id issue type
-router.get("email/:email", userController.findIdByEmail);
+router.get("/email/:email", userController.findIdByEmail);
 
 // find id by email
 router.get("/:id", userController.findById);

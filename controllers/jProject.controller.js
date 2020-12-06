@@ -3,7 +3,7 @@
 const Project = require("../models/jProjects.model");
 
 exports.findAll = (req, res) => {
-  issue.findAll((err, project) => {
+  Project.findAll((err, project) => {
     if (err) throw err;
     console.log(project);
     res.send(project);
@@ -11,12 +11,14 @@ exports.findAll = (req, res) => {
 };
 
 exports.create = (req, res) => {
+  console.log(req.body);
   const new_project = new Project(req.body);
+  console.log(new_project);
 
   if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
     res.status(400).send({ error: true, message: "dien tat ca cac truong" });
   } else {
-    issue.createIssue(new_project, (err, project) => {
+    Project.create(new_project, (err, project) => {
       if (err) res.send(err);
       res.send({ error: false, message: "successfully", data: project });
     });
@@ -24,7 +26,14 @@ exports.create = (req, res) => {
 };
 
 exports.findById = (req, res) => {
-  issue.findById(req.params.id, (err, project) => {
+  Project.findById(req.params.id, (err, project) => {
+    if (err) res.send(err);
+    res.send(project);
+  });
+};
+
+exports.findIdByName = (req, res) => {
+  Project.findIdByName(req.params.name, (err, project) => {
     if (err) res.send(err);
     res.send(project);
   });
@@ -36,7 +45,7 @@ exports.update = (req, res) => {
       .status(400)
       .send({ error: true, message: "Please provide all required field" });
   } else {
-    issue.updateById(
+    Project.updateById(
       req.params.id,
       new Project(req.body),
       (err, project) => {
@@ -48,7 +57,7 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-  issue.delete(req.params.id, (err, project) => {
+  Project.delete(req.params.id, (err, project) => {
     if (err) res.send(err);
     res.json({ error: false, message: "deleted successfully" });
   });

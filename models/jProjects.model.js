@@ -3,25 +3,27 @@ let sql = require(".");
 
 //Issue type object constructor
 var Project = function (project) {
-  console.log(projectCategory);
+  console.log(project);
+  this.id = project.id;
   this.name = project.name;
   this.description = project.description;
-  this.createAt = project.createAt;
-  this.updateAt = project.updateAt;
-  this.projectCategoryId = project.projectCategoryId;
-  this.groupId = project.groupId;
+  this.projectCategoriesId = project.projectCategoriesId;
+  this.createdAt = project.createdAt;
+  this.updatedAt = project.updatedAt;
 };
 
-const tableName = "jProject";
+const tableName = "jProjects";
 
 Project.create = (newProject, result) => {
-  sql.query(`INSERT INTO ${tableName} set ?`, newProject, (err, res) => {
+  console.log(newProject);
+  sql.query(`INSERT INTO ${tableName} (id, name, description, projectCategoriesId, createdAt, updatedAt) VALUES (?,?,?,?,?,?)`,
+    [newProject.id, newProject.name, newProject.description, newProject.projectCategoriesId, newProject.createdAt, newProject.updatedAt], (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
     } else {
       console.log(res.insertId);
-      result(null, res.insertId);
+      result(null, newProject.id);
     }
   });
 };
@@ -41,8 +43,23 @@ Project.findById = (projectId, result) => {
   );
 };
 
+Project.findIdByName = (name, result) => {
+  sql.query(
+    `Select id from ${tableName} where name = ?`,
+    name,
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+      } else {
+        result(null, res);
+      }
+    }
+  );
+};
+
 Project.findAll = (result) => {
-  sql.query(`Select * from ${tableName}`, (err, res) => {
+  sql.query(`Select id from ${tableName}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
