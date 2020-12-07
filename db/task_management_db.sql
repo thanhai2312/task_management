@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2020 at 08:02 PM
+-- Generation Time: Dec 07, 2020 at 05:31 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -33,6 +33,17 @@ CREATE TABLE `jissuepriorities` (
   `priority` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `jissuepriorities`
+--
+
+INSERT INTO `jissuepriorities` (`id`, `priority`) VALUES
+(1, 'Lowest'),
+(2, 'Low'),
+(3, 'Medium'),
+(4, 'High'),
+(5, 'Highest');
+
 -- --------------------------------------------------------
 
 --
@@ -40,7 +51,7 @@ CREATE TABLE `jissuepriorities` (
 --
 
 CREATE TABLE `jissues` (
-  `id` bigint(20) NOT NULL,
+  `id` varchar(20) NOT NULL,
   `title` text DEFAULT NULL,
   `issueTypeId` bigint(20) DEFAULT NULL,
   `issueStatusId` bigint(20) DEFAULT NULL,
@@ -53,6 +64,13 @@ CREATE TABLE `jissues` (
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `jissues`
+--
+
+INSERT INTO `jissues` (`id`, `title`, `issueTypeId`, `issueStatusId`, `issuePriorityId`, `listPosition`, `description`, `reporterId`, `userIds`, `deadlineAt`, `createdAt`, `updatedAt`) VALUES
+('1', 'A1', 1, 1, 4, '0', 'A11', 'd65047e5-f4cf-4caa-9a38-6073dcbab7d1', 'd65047e5-f4cf-4caa-9a38-6073dcbab7d1,7ac265f9-b9ac-443f-a2b2-795682e579a4,94502aad-c97f-43e1-a9d1-28cf3e4937a7', '2020-12-09 00:00:00', '2020-12-07 00:00:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -106,10 +124,19 @@ CREATE TABLE `jjobs` (
   `id` bigint(20) NOT NULL,
   `name` varchar(30) DEFAULT NULL,
   `finish` tinyint(1) DEFAULT NULL,
-  `userIds` bigint(20) DEFAULT NULL,
+  `userIds` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
   `deadlineAt` datetime DEFAULT NULL,
   `listJobId` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `jjobs`
+--
+
+INSERT INTO `jjobs` (`id`, `name`, `finish`, `userIds`, `description`, `deadlineAt`, `listJobId`) VALUES
+(1, 'A11', 1, '610451aa-10c8-4d7e-9363-311357c0b0dd', 'sssssss', '0000-00-00 00:00:00', 1),
+(2, 'A22', 0, '7ac265f9-b9ac-443f-a2b2-795682e579a4', 'ssss', '0000-00-00 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -120,8 +147,17 @@ CREATE TABLE `jjobs` (
 CREATE TABLE `jlistjobs` (
   `id` bigint(20) NOT NULL,
   `name` varchar(30) DEFAULT NULL,
-  `issueId` bigint(20) DEFAULT NULL
+  `issueId` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `jlistjobs`
+--
+
+INSERT INTO `jlistjobs` (`id`, `name`, `issueId`) VALUES
+(1, 'List job 1', '1'),
+(2, 'ssss', '1'),
+(3, 'vvvvv', '1');
 
 -- --------------------------------------------------------
 
@@ -303,7 +339,7 @@ ALTER TABLE `jusers`
 -- AUTO_INCREMENT for table `jissuepriorities`
 --
 ALTER TABLE `jissuepriorities`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `jissuestatus`
@@ -316,6 +352,12 @@ ALTER TABLE `jissuestatus`
 --
 ALTER TABLE `jissuetypes`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `jjobs`
+--
+ALTER TABLE `jjobs`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
