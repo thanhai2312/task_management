@@ -92,7 +92,7 @@ ListJob.updateById = (id, listJob, result) => {
   );
 };
 
-ListJob.remove = (id, result) => {
+ListJob.delete = (id, result) => {
   sql.query(`DELETE FROM ${tableName} WHERE id = ?`, [id], function (err, res) {
     if (err) {
       console.log("error: ", err);
