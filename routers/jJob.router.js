@@ -11,6 +11,12 @@ router.get("/", jobController.findAll);
 // find one by id issue type
 router.get("/:id", jobController.findById);
 
+// find one by id issue type
+router.get("/list-job/:id", jobController.findJobByLisJobId);
+
+// find one by id issue type
+router.get("/finish/:id", jobController.findJobFinish);
+
 // Update a IssueType with id
 router.put("/:id", jobController.update);
 

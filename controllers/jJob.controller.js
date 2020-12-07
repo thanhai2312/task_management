@@ -3,7 +3,7 @@
 const Job = require("../models/jJobs.model");
 
 exports.findAll = (req, res) => {
-  issue.findAll((err, job) => {
+  Job.findAll((err, job) => {
     if (err) throw err;
     console.log(job);
     res.send(job);
@@ -16,7 +16,7 @@ exports.create = (req, res) => {
   if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
     res.status(400).send({ error: true, message: "dien tat ca cac truong" });
   } else {
-    issue.createIssue(new_job, (err, job) => {
+    Job.create(new_job, (err, job) => {
       if (err) res.send(err);
       res.send({ error: false, message: "successfully", data: job });
     });
@@ -24,7 +24,21 @@ exports.create = (req, res) => {
 };
 
 exports.findById = (req, res) => {
-  issue.findById(req.params.id, (err, job) => {
+  Job.findById(req.params.id, (err, job) => {
+    if (err) res.send(err);
+    res.send(job);
+  });
+};
+
+exports.findJobByLisJobId = (req, res) => {
+  Job.findJobByLisJobId(req.params.id, (err, job) => {
+    if (err) res.send(err);
+    res.send(job);
+  });
+};
+
+exports.findJobFinish = (req, res) => {
+  Job.findJobFinish(req.params.id, (err, job) => {
     if (err) res.send(err);
     res.send(job);
   });
@@ -36,7 +50,7 @@ exports.update = (req, res) => {
       .status(400)
       .send({ error: true, message: "Please provide all required field" });
   } else {
-    issue.updateById(
+    Job.updateById(
       req.params.id,
       new Job(req.body),
       (err, job) => {
@@ -48,7 +62,7 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-  issue.delete(req.params.id, (err, job) => {
+  Job.delete(req.params.id, (err, job) => {
     if (err) res.send(err);
     res.json({ error: false, message: "deleted successfully" });
   });

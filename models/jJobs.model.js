@@ -7,8 +7,9 @@ var Job = function (job) {
   this.name = job.name;
   this.finish = job.finish;
   this.userIds = job.userIds;
-  this.deadlineAt = new Date();
+  this.deadlineAt =job.userIds;
   this.listJobId = job.listJobId;
+  this.description = job.description;
 };
 
 const tableName = "jjobs";
@@ -40,6 +41,36 @@ Job.findById = (jobId, result) => {
   );
 };
 
+Job.findJobByLisJobId = (listJobId, result) => {
+  sql.query(
+    `Select * from ${tableName} where listJobId = ?`,
+    listJobId,
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+      } else {
+        result(null, res);
+      }
+    }
+  );
+};
+
+Job.findJobFinish = (listJobId, result) => {
+  sql.query(
+    `Select * from ${tableName} where listJobId = ? and finish = true`,
+    listJobId,
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+      } else {
+        result(null, res);
+      }
+    }
+  );
+};
+
 Job.findAll = (result) => {
   sql.query(`Select * from ${tableName}`, (err, res) => {
     if (err) {
@@ -54,8 +85,8 @@ Job.findAll = (result) => {
 
 Job.updateById = (id, job, result) => {
   sql.query(
-    `UPDATE ${tableName} SET name = ?, finish = ?, userIds = ?, deadlineAt = ?, listJobId = ? WHERE id = ?`,
-    [job.name, job.finish, job.userIds, job.deadlineAt, job.listJobId, id],
+    `UPDATE ${tableName} SET name = ?, finish = ?, userIds = ?, deadlineAt = ?, listJobId = ?, description = ? WHERE id = ?`,
+    [job.name, job.finish, job.userIds, job.deadlineAt, job.listJobId, job.description, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -67,7 +98,7 @@ Job.updateById = (id, job, result) => {
   );
 };
 
-Job.remove = (id, result) => {
+Job.delete = (id, result) => {
   sql.query(`DELETE FROM ${tableName} WHERE id = ?`, [id], function (err, res) {
     if (err) {
       console.log("error: ", err);

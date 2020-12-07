@@ -8,8 +8,14 @@ router.post("/", listJobController.create);
 // find all issue type
 router.get("/", listJobController.findAll);
 
+// find all issue type
+router.get("/id", listJobController.findAllId);
+
 // find one by id issue type
 router.get("/:id", listJobController.findById);
+
+// find one by id issue type
+router.get("/issue/:id", listJobController.findListJobByIdIssue);
 
 // Update a IssueType with id
 router.put("/:id", listJobController.update);
