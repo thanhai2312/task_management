@@ -31,6 +31,13 @@ exports.findById = (req, res) => {
   });
 };
 
+exports.login = (req, res) => {
+  user.login(req.params.email, req.params.password, (err, user) => {
+    if (err) res.send(err);
+    res.json(user);
+  });
+};
+
 exports.findIdByEmail = (req, res) => {
   user.findIdByEmail(req.params.email, (err, user) => {
     if (err) res.send(err);

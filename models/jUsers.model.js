@@ -3,13 +3,14 @@ var sql = require(".");
 //Issue type object constructor
 var User = function (user) {
   console.log(user);
+  this.id = user.id;
   this.name = user.name;
   this.email = user.email;
   this.description = user.description;
   this.avatarUrl = user.avatarUrl;
   this.password = user.password;
-  this.createAt = user.createAt;
-  this.updateAt = user.updateAt;
+  this.createdAt = user.createAt;
+  this.updatedAt = user.updateAt;
   this.projectAdmin = user.projectAdmin;
 
 };
@@ -32,6 +33,21 @@ User.findById = (userId, result) => {
   sql.query(
     `Select * from ${tableName} where id = ?`,
     userId,
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+      } else {
+        result(null, res);
+      }
+    }
+  );
+};
+
+User.login = (email, password, result) => {
+  sql.query(
+    `Select id from ${tableName} where email = ? and password = ?`,
+    [email, password],
     (err, res) => {
       if (err) {
         console.log("error: ", err);

@@ -15,6 +15,9 @@ router.get("/email/:email", userController.findIdByEmail);
 // find id by email
 router.get("/:id", userController.findById);
 
+// find id by email
+router.get("/:email/:password", userController.login);
+
 // Update a IssueType with id
 router.put("/:id", userController.update);
 
