@@ -16,7 +16,7 @@ exports.create = (req, res) => {
   if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
     IssueStatus.status(400).send({ error: true, message: "dien tat ca cac truong" });
   } else {
-    issue.createIssue(new_issueStatus, (err, issueStatus) => {
+    IssueStatus.create(new_issueStatus, (err, issueStatus) => {
       if (err) res.send(err);
       res.send({ error: false, message: "successfully", data: issueStatus });
     });
@@ -25,6 +25,13 @@ exports.create = (req, res) => {
 
 exports.findById = (req, res) => {
   IssueStatus.findById(req.params.id, (err, issueStatus) => {
+    if (err) res.send(err);
+    res.send(issueStatus);
+  });
+};
+
+exports.findByProjectId = (req, res) => {
+  IssueStatus.findByProjectId(req.params.id, (err, issueStatus) => {
     if (err) res.send(err);
     res.send(issueStatus);
   });

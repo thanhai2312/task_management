@@ -6,7 +6,7 @@ var IssueStatus = function (issueStatus) {
   console.log(issueStatus);
   this.position = issueStatus.position;
   this.status = issueStatus.status;
-  this.projectId = issueStatus.id;
+  this.projectId = issueStatus.projectId;
 };
 
 const tableName = "jIssueStatus";
@@ -27,6 +27,21 @@ IssueStatus.findById = (issueStatusId, result) => {
   sql.query(
     `Select * from ${tableName} where id = ?`,
     issueStatusId,
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+      } else {
+        result(null, res);
+      }
+    }
+  );
+};
+
+IssueStatus.findByProjectId = (projectId, result) => {
+  sql.query(
+    `Select * from ${tableName} where projectId = ?`,
+    projectId,
     (err, res) => {
       if (err) {
         console.log("error: ", err);

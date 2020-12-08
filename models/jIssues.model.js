@@ -4,20 +4,21 @@ let sql = require(".");
 //Issue type object constructor
 var Issue = function (issue)  {
   console.log(issue);
+  this.id = issue.id;
   this.title = issue.title;
   this.listPosition = issue.listPosition;
   this.description = issue.description;
   this.reporterId = issue.reporterId;
-  this.userId = issue.userId;
+  this.userIds = issue.userIds;
   this.deadlineAt = issue.deadlineAt;
-  this.createAt = issue.createAt;
-  this.updateAt = issue.updateAt;
+  this.createdAt = issue.createdAt;
+  this.updatedAt = issue.updatedAt;
   this.issueTypeId = issue.issueTypeId;
   this.issueStatusId = issue.issueStatusId;
   this.issuePriorityId = issue.issuePriorityId;
 };
 
-const tableName = "jIssue";
+const tableName = "jissues";
 
 Issue.create = (newIssue, result) => {
   sql.query(`INSERT INTO ${tableName} set ?`, newIssue, (err, res) => {
@@ -30,6 +31,7 @@ Issue.create = (newIssue, result) => {
     }
   });
 };
+
 Issue.findById = (issueId, result) => {
   sql.query(`Select * from ${tableName} where id = ?`, issueId, (err, res) => {
     if (err) {
@@ -40,6 +42,29 @@ Issue.findById = (issueId, result) => {
     }
   });
 };
+
+Issue.findByUserId = (userId, result) => {
+  sql.query(`Select * from ${tableName} where userIds like ?`, userId + '%', (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+    } else {
+      result(null, res);
+    }
+  });
+};
+
+Issue.findByStatusId = (statusId, result) => {
+  sql.query(`Select * from ${tableName} where issueStatusId = ?`, statusId, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+    } else {
+      result(null, res);
+    }
+  });
+};
+
 Issue.findAll = (result) => {
   sql.query(`Select * from ${tableName}`, (err, res) => {
     if (err) {
@@ -54,15 +79,15 @@ Issue.findAll = (result) => {
 };
 Issue.updateById = (id, issue, result) => {
   sql.query(
-    `UPDATE ${tableName} SET title = ?, listPosition = ?, description = ?, reporterId = ?, userId = ?, deadlineAt = ?, updateAt = ?, issueTypeId = ?, issueStatusId = ?, issuePriorityId = ?  WHERE id = ?`,
+    `UPDATE ${tableName} SET title = ?, listPosition = ?, description = ?, reporterId = ?, userIds = ?, deadlineAt = ?, updatedAt = ?, issueTypeId = ?, issueStatusId = ?, issuePriorityId = ?  WHERE id = ?`,
     [
       issue.title,
       issue.listPosition,
       issue.description,
       issue.deadlineAt,
-      issue.updateAt,
+      issue.updatedAt,
       issue.reporterId,
-      issue.userId,
+      issue.userIds,
       issue.issueTypeId,
       issue.issueStatusId,
       issue.issuePriorityId,
@@ -78,7 +103,7 @@ Issue.updateById = (id, issue, result) => {
     }
   );
 };
-Issue.remove = (id, result) => {
+Issue.delete = (id, result) => {
   sql.query(`DELETE FROM ${tableName} WHERE id = ?`, [id], function (err, res) {
     if (err) {
       console.log("error: ", err);

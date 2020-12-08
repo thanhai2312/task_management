@@ -11,6 +11,12 @@ router.get("/", issueController.findAll);
 // find one by id issue type
 router.get("/:id", issueController.findById);
 
+// find one by id issue type
+router.get("/status/:id", issueController.findByStatusId);
+
+// find one by id issue type
+router.get("/user/:id", issueController.findByUserId);
+
 // Update a IssueType with id
 router.put("/:id", issueController.update);
 
