@@ -62,6 +62,23 @@ exports.update = (req, res) => {
   }
 };
 
+exports.updatePassword = (req, res) => {
+  if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
+    res
+      .status(400)
+      .send({ error: true, message: "Please provide all required field" });
+  } else {
+    user.updatePassword(
+      req.params.id,
+      new user(req.body),
+      (err, issueType) => {
+        if (err) res.send(err);
+        res.json({ error: false, message: "updated successfully" });
+      }
+    );
+  }
+};
+
 exports.updateAdminProjects = (req, res) => {
   if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
     res

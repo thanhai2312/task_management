@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 07, 2020 at 05:31 PM
+-- Generation Time: Dec 09, 2020 at 11:31 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -70,7 +70,11 @@ CREATE TABLE `jissues` (
 --
 
 INSERT INTO `jissues` (`id`, `title`, `issueTypeId`, `issueStatusId`, `issuePriorityId`, `listPosition`, `description`, `reporterId`, `userIds`, `deadlineAt`, `createdAt`, `updatedAt`) VALUES
-('1', 'A1', 1, 1, 4, '0', 'A11', 'd65047e5-f4cf-4caa-9a38-6073dcbab7d1', 'd65047e5-f4cf-4caa-9a38-6073dcbab7d1,7ac265f9-b9ac-443f-a2b2-795682e579a4,94502aad-c97f-43e1-a9d1-28cf3e4937a7', '2020-12-09 00:00:00', '2020-12-07 00:00:00', NULL);
+('14140', 'B1', 1, 2, 3, '1', '', 'd65047e5-f4cf-4caa-9a38-6073dcbab7d1', '', NULL, '2020-12-09 05:07:58', '2020-12-09 05:15:13'),
+('46713', 'C1', 1, 3, 3, '1', '', 'd65047e5-f4cf-4caa-9a38-6073dcbab7d1', '', NULL, '2020-12-09 04:30:04', '2020-12-09 05:15:14'),
+('70294', 'A3', 1, 1, 3, '2', '', 'd65047e5-f4cf-4caa-9a38-6073dcbab7d1', 'd65047e5-f4cf-4caa-9a38-6073dcbab7d1', NULL, '2020-12-09 05:09:03', '2020-12-09 05:41:02'),
+('84565', 'B2', 1, 2, 3, '2', '', 'd65047e5-f4cf-4caa-9a38-6073dcbab7d1', '', NULL, '2020-12-09 05:08:01', '2020-12-09 05:15:13'),
+('87127', 'D1', 1, 4, 3, '1', '', 'd65047e5-f4cf-4caa-9a38-6073dcbab7d1', '', NULL, '2020-12-09 04:31:16', '2020-12-09 05:14:42');
 
 -- --------------------------------------------------------
 
@@ -93,7 +97,23 @@ INSERT INTO `jissuestatus` (`id`, `position`, `status`, `projectId`) VALUES
 (1, 0, 'Backlog', 101),
 (2, 1, 'Selected', 101),
 (3, 2, 'InProgress', 101),
-(4, 3, 'Done', 101);
+(4, 3, 'Done', 101),
+(10, 0, 'Backlog', 106),
+(11, 1, 'Selected', 106),
+(12, 2, 'InProgress', 106),
+(13, 3, 'Done', 106),
+(14, 0, 'Backlog', 107),
+(15, 1, 'Selected', 107),
+(16, 2, 'InProgress', 107),
+(17, 3, 'Done', 107),
+(18, 0, 'Backlog', 108),
+(19, 1, 'Selected', 108),
+(20, 2, 'InProgress', 108),
+(21, 3, 'Done', 108),
+(22, 0, 'Backlog', 109),
+(23, 1, 'Selected', 109),
+(24, 2, 'InProgress', 109),
+(25, 3, 'Done', 109);
 
 -- --------------------------------------------------------
 
@@ -130,14 +150,6 @@ CREATE TABLE `jjobs` (
   `listJobId` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `jjobs`
---
-
-INSERT INTO `jjobs` (`id`, `name`, `finish`, `userIds`, `description`, `deadlineAt`, `listJobId`) VALUES
-(1, 'A11', 1, '610451aa-10c8-4d7e-9363-311357c0b0dd', 'sssssss', '0000-00-00 00:00:00', 1),
-(2, 'A22', 0, '7ac265f9-b9ac-443f-a2b2-795682e579a4', 'ssss', '0000-00-00 00:00:00', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -149,15 +161,6 @@ CREATE TABLE `jlistjobs` (
   `name` varchar(30) DEFAULT NULL,
   `issueId` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `jlistjobs`
---
-
-INSERT INTO `jlistjobs` (`id`, `name`, `issueId`) VALUES
-(1, 'List job 1', '1'),
-(2, 'ssss', '1'),
-(3, 'vvvvv', '1');
 
 -- --------------------------------------------------------
 
@@ -199,11 +202,15 @@ CREATE TABLE `jprojects` (
 --
 
 INSERT INTO `jprojects` (`id`, `name`, `description`, `projectCategoriesId`, `createdAt`, `updatedAt`) VALUES
-(101, 'DATN', 'ĐỒ ÁN TỐT NGHIỆP', 1, '2020-12-04 00:00:00', '2020-12-04 00:00:00'),
+(101, 'DATN-2020', 'ĐỒ ÁN TỐT NGHIỆP', 1, '2020-12-04 00:00:00', '2020-12-09 08:51:44'),
 (102, 'DEMO', NULL, 2, '2020-12-06 00:00:00', NULL),
 (103, 'DEMO_2', NULL, 2, '2020-12-06 00:00:00', NULL),
 (104, 'sssss', NULL, 1, '2020-12-06 18:18:25', NULL),
-(105, 'vinhnd', NULL, 1, '2020-12-06 18:28:32', NULL);
+(105, 'vinhnd', NULL, 1, '2020-12-06 18:28:32', NULL),
+(106, 'nnnnnn', NULL, 1, '2020-12-08 17:56:25', NULL),
+(107, 'sssssss', NULL, 1, '2020-12-09 07:50:47', NULL),
+(108, 'ccccc', NULL, 1, '2020-12-09 07:52:06', NULL),
+(109, 'mmmmmmm', NULL, 2, '2020-12-09 07:52:20', NULL);
 
 -- --------------------------------------------------------
 
@@ -222,13 +229,16 @@ CREATE TABLE `juserprojects` (
 
 INSERT INTO `juserprojects` (`userId`, `projectId`) VALUES
 ('7ac265f9-b9ac-443f-a2b2-795682e579a4', 101),
-('94502aad-c97f-43e1-a9d1-28cf3e4937a7', 101),
 ('610451aa-10c8-4d7e-9363-311357c0b0dd', 101),
-('d65047e5-f4cf-4caa-9a38-6073dcbab7d1', 101),
 ('d65047e5-f4cf-4caa-9a38-6073dcbab7d1', 102),
 ('d65047e5-f4cf-4caa-9a38-6073dcbab7d1', 103),
 ('d65047e5-f4cf-4caa-9a38-6073dcbab7d1', 104),
-('d65047e5-f4cf-4caa-9a38-6073dcbab7d1', 105);
+('d65047e5-f4cf-4caa-9a38-6073dcbab7d1', 105),
+('d65047e5-f4cf-4caa-9a38-6073dcbab7d1', 106),
+('d65047e5-f4cf-4caa-9a38-6073dcbab7d1', 107),
+('d65047e5-f4cf-4caa-9a38-6073dcbab7d1', 108),
+('d65047e5-f4cf-4caa-9a38-6073dcbab7d1', 109),
+('d65047e5-f4cf-4caa-9a38-6073dcbab7d1', 101);
 
 -- --------------------------------------------------------
 
@@ -257,7 +267,8 @@ INSERT INTO `jusers` (`id`, `name`, `email`, `description`, `avatarUrl`, `passwo
 ('610451aa-10c8-4d7e-9363-311357c0b0dd', 'Linh Linh', 'linhsasukeno1@gmail.com', NULL, 'https://firebasestorage.googleapis.com/v0/b/task-management-client.appspot.com/o/images%2Flinhlinh.jpg?alt=media&token=3d024b36-67a4-4073-ba76-04448f154a28', '123123', '2020-12-01 00:00:00', '2020-12-04 00:00:00', '101'),
 ('7ac265f9-b9ac-443f-a2b2-795682e579a4', 'Nguyen Duc Thanh Hai', 'thanhhai2312@gmail.com', NULL, 'https://firebasestorage.googleapis.com/v0/b/task-management-client.appspot.com/o/images%2Fnguyenducthanhhai.jpg?alt=media&token=fe78b011-95bf-45ce-b8ff-d79526e440bb', '123123', '2020-12-01 00:00:00', '2020-12-04 00:00:00', NULL),
 ('94502aad-c97f-43e1-a9d1-28cf3e4937a7', 'Nguyen Duc Thien', 'tducthien1997@gmail.com', NULL, 'https://firebasestorage.googleapis.com/v0/b/task-management-client.appspot.com/o/images%2Fnguyenducthien.jpg?alt=media&token=ebd6853a-67ba-4c22-bdd4-615a064a7782', '123123', '2020-12-01 00:00:00', '2020-12-04 00:00:00', NULL),
-('d65047e5-f4cf-4caa-9a38-6073dcbab7d1', 'Nguyen Duc Vinh', 'ducvinhnguyen2609@gmail.com', NULL, 'https://firebasestorage.googleapis.com/v0/b/task-management-client.appspot.com/o/images%2Fnguyenducvinh.jpg?alt=media&token=e9ee6540-e78e-458e-a4dc-7f1a548409d9', '123123', '2020-12-01 00:00:00', '2020-12-04 00:00:00', '101,104,105');
+('9b1c6fa8-e7c5-49ee-b497-79e8ceaa9187', 'vinhnd', 'aaa@gmail.com', 'test', 'https://firebasestorage.googleapis.com/v0/b/task-management-client.appspot.com/o/images%2FN3_NGUYENDUCVINH_26091997_1607507850845?alt=media&token=f1d52e44-689a-4482-a3ae-c650414890f0', '123123123', NULL, '2020-12-09 17:29:27', ''),
+('d65047e5-f4cf-4caa-9a38-6073dcbab7d1', 'Nguyen Duc Vinh', 'ducvinhnguyen2609@gmail.com', NULL, 'https://firebasestorage.googleapis.com/v0/b/task-management-client.appspot.com/o/images%2Fnguyenducvinh.jpg?alt=media&token=e9ee6540-e78e-458e-a4dc-7f1a548409d9', '123123', '2020-12-01 00:00:00', '2020-12-04 00:00:00', '101,104,105,106,107,108,109');
 
 --
 -- Indexes for dumped tables
@@ -345,7 +356,7 @@ ALTER TABLE `jissuepriorities`
 -- AUTO_INCREMENT for table `jissuestatus`
 --
 ALTER TABLE `jissuestatus`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `jissuetypes`
@@ -357,7 +368,7 @@ ALTER TABLE `jissuetypes`
 -- AUTO_INCREMENT for table `jjobs`
 --
 ALTER TABLE `jjobs`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables

@@ -21,6 +21,9 @@ router.get("/:email/:password", userController.login);
 // Update a IssueType with id
 router.put("/:id", userController.update);
 
+// Update a IssueType with id
+router.put("/password/:id", userController.updatePassword);
+
 // updateAdminProjects with id
 router.put("/update_admin_projects/:id", userController.updateAdminProjects);
 

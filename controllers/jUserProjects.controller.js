@@ -29,3 +29,10 @@ exports.create = (req, res) => {
     });
   }
 };
+
+exports.delete = (req, res) => {
+  userProject.delete(req.params.userId, req.params.projectId, (err, issueType) => {
+    if (err) res.send(err);
+    res.json({ error: false, message: "deleted successfully" });
+  });
+};

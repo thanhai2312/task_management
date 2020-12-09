@@ -10,7 +10,7 @@ var User = function (user) {
   this.avatarUrl = user.avatarUrl;
   this.password = user.password;
   this.createdAt = user.createAt;
-  this.updatedAt = user.updateAt;
+  this.updatedAt = user.updatedAt;
   this.projectAdmin = user.projectAdmin;
 
 };
@@ -89,8 +89,23 @@ User.findAll = (result) => {
 
 User.updateById = (id, user, result) => {
   sql.query(
-    `UPDATE ${tableName} SET name = ?, updateAt = ?, email = ?, description = ?, avatarUrl = ? WHERE id = ?`,
-    [user.name, user.email, user.description, user.avatarUrl, user.updateAt, id],
+    `UPDATE ${tableName} SET name = ?, updatedAt = ?, email = ?, description = ?, avatarUrl = ? WHERE id = ?`,
+    [user.name, user.updatedAt, user.email, user.description, user.avatarUrl, id],
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+      } else {
+        result(null, res);
+      }
+    }
+  );
+};
+
+User.updatePassword = (id, user, result) => {
+  sql.query(
+    `UPDATE ${tableName} SET password = ? WHERE id = ?`,
+    [user.password, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);

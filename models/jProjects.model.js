@@ -73,8 +73,8 @@ Project.findAll = (result) => {
 
 Project.updateById = (id, project, result) => {
   sql.query(
-    `UPDATE ${tableName} SET name = ?, description = ?, updateAt = ?, projectCategoryId = ?, groupId = ? WHERE id = ?`,
-    [project.name, project.description, project.updateAt, project.projectCategoryId, project.groupId, id],
+    `UPDATE ${tableName} SET name = ?, description = ?, updatedAt = ?, projectCategoriesId = ? WHERE id = ?`,
+    [project.name, project.description, project.updatedAt, project.projectCategoriesId, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);

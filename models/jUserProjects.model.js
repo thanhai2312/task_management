@@ -78,15 +78,16 @@ UserProject.findByUserId = (id, result) => {
 //     }
 //   );
 // };
-// UserProject.remove = (id, result) => {
-//   sql.query(`DELETE FROM ${tableName} WHERE id = ?`, [id], function (err, res) {
-//     if (err) {
-//       console.log("error: ", err);
-//       result(null, err);
-//     } else {
-//       result(null, res);
-//     }
-//   });
-// };
+
+UserProject.delete = (userId, projectId, result) => {
+  sql.query(`DELETE FROM ${tableName} WHERE userId = ? AND projectId = ?`, [userId, projectId], function (err, res) {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+    } else {
+      result(null, res);
+    }
+  });
+};
 
 module.exports = UserProject;
