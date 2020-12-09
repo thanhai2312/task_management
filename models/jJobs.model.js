@@ -7,7 +7,7 @@ var Job = function (job) {
   this.name = job.name;
   this.finish = job.finish;
   this.userIds = job.userIds;
-  this.deadlineAt =job.userIds;
+  this.deadlineAt =job.deadlineAt;
   this.listJobId = job.listJobId;
   this.description = job.description;
 };
